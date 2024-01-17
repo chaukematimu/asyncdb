@@ -9,7 +9,7 @@ Python 3.10+
 ## Installation
 
 ```shell
-$ pip install asyncdb
+$ git clone git@github.com:chaukematimu/asyncdb.git
 $ cd asyncdb
 $ script/setup
 ```
