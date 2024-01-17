@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "asyncdb"
 description = "Asynchronous database package."
 dynamic = ["version"]
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 authors = [
     { name = "Matimu Chauke", email = "matimu@chauke.org" },
 ]
@@ -22,7 +22,14 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Internet :: WWW/HTTP",
 ]
-dependencies = []
+
+dependencies = [
+    "asyncpg==0.29.0",
+    "greenlet==3.0.3",
+    "sqlmodel==0.0.14",
+    "alembic==1.13.1",
+    "SQLAlchemy==2.0.25",
+]
 
 [project.optional-dependencies]
 full = []
