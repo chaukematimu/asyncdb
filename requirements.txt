@@ -1,0 +1,13 @@
+-e .[full]
+
+# Testing
+black
+coverage
+mypy
+typing_extensions
+types-dataclasses
+pytest
+
+# Packaging
+build
+twine
