@@ -10,11 +10,11 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from asyncdb.config import settings
 
 
-class DBTransaction:
+class Transaction:
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
-    async def __aenter__(self) -> "DBTransaction":
+    async def __aenter__(self) -> "Transaction":
         return self
 
     async def __aexit__(self, exc_type, exc_value, traceback) -> None:
@@ -35,9 +35,11 @@ class DBTransaction:
         await self.session.close()
 
 
-class RelationalDatabaseService:
+class DBStorage:
     def __init__(
-            self, session: AsyncSession, transaction: DBTransaction
+            self: "DBStorage",
+            session: AsyncSession,
+            transaction: Transaction
     ) -> None:
         self.session = session
         self.transaction = transaction
@@ -59,21 +61,25 @@ class RelationalDatabaseService:
             await self.session.execute(q)
 
 
-database_session: Optional[AsyncSession] = None
-
-
-def get_relational_database_service() -> RelationalDatabaseService:
-    return RelationalDatabaseService(
-        transaction=DBTransaction(session=database_session), session=database_session
+async def get_database_storage() -> DBStorage:
+    if Database.async_session is None:
+        await Database.connect()
+    return DBStorage(
+        session=Database.async_session,
+        transaction=Transaction(session=Database.async_session)
     )
 
 
-async def create_database_connection():
-    engine = create_async_engine(settings.PSQL_DSN, echo=True, poolclass=NullPool)
-    async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
-    database_session = async_session()
+class Database:
+    async_session: Optional[AsyncSession] = None
 
+    @classmethod
+    async def connect(cls):
+        engine = create_async_engine(settings.PSQL_DSN, echo=True, poolclass=NullPool)
+        async_session = async_sessionmaker(engine, expire_on_commit=False, class_=AsyncSession)
+        cls.async_session = async_session()
 
-async def close_database_connection():
-    if database_session is not None:
-        await database_session.close()
+    @classmethod
+    async def disconnect(cls):
+        if cls.async_session is not None:
+            await cls.async_session.close()

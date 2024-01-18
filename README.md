@@ -31,7 +31,7 @@ brew unlink postgresql@15 && brew link postgresql@15 --force
 Generate new migration:
 
 ```shell
-$ alembic revision --autogenerate -m "Added test table"
+$ alembic revision --autogenerate -m "Added oauth2 tables"
 ```
 
 Run Migrations :

@@ -29,6 +29,7 @@ dependencies = [
     "sqlmodel==0.0.14",
     "alembic==1.13.1",
     "SQLAlchemy==2.0.25",
+    "pydantic-settings==2.1.0"
 ]
 
 [project.optional-dependencies]

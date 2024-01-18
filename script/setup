@@ -8,4 +8,6 @@ set -e
 cd "$(dirname "$0")/.."
 
 script/bootstrap
-psql -d postgres -f asyncdb/setup.sql
+cd asyncdb
+psql -d postgres -f setup.sql
+alembic upgrade head

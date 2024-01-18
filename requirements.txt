@@ -6,8 +6,11 @@ coverage
 mypy
 typing_extensions
 types-dataclasses
-pytest
+pytest==7.4.4
+
+pytest-asyncio==0.23.3
 
 # Packaging
 build
 twine
+

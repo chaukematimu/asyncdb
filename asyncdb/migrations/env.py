@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlmodel import SQLModel  # Added
 
 from alembic import context
-from asyncdb.models import BaseModel  # For auto-generation
+import asyncdb.models  # For auto-generation
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
