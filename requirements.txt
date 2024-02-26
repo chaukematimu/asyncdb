@@ -1,4 +1,4 @@
--e .[full]
+-e .
 
 # Testing
 black

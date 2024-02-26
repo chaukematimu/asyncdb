@@ -11,6 +11,9 @@ Python 3.10+
 ```shell
 $ git clone git@github.com:chaukematimu/asyncdb.git
 $ cd asyncdb
+$ sed -ie 's/<DB_NAME>/test/' asyncdb/setup.sql
+$ sed -ie 's/<DB_USER>/test/' asyncdb/setup.sql
+$ sed -ie 's/<DB_USER_PASSWORD>/test/' asyncdb/setup.sql
 $ script/setup
 ```
 
